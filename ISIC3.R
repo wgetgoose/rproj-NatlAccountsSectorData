@@ -62,6 +62,8 @@ ISIC3_growth <- ISIC3_wider %>%
     sector_sums = sum(across(c(`A+B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M+N+O`, `P`)), na.rm=TRUE)
   ) %>%
   ungroup() %>%
+  
+  # Sort by Country and Year ascending
   arrange(`Country or Area`, `Year`)
 
 # Delete reported GVA and calculated TVA from output 
