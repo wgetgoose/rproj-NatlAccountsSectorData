@@ -88,4 +88,4 @@ ISIC4_growth$total_value_added <- NULL
 ISIC4_growth <- ISIC4_growth %>% filter(!is.na(`A`))
 
 # write to excel file
-write.xlsx(ISIC4_growth, "ISIC4_growth.xlsx")
+write.xlsx(ISIC4_growth, file.choose())
