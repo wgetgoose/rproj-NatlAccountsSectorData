@@ -1,7 +1,6 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(hrbrthemes)
 library(stringr)
 library(readxl)
 library(openxlsx)

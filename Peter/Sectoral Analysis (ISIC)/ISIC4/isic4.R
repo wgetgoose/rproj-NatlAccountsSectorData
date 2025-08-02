@@ -1,39 +1,14 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(hrbrthemes)
 library(stringr)
 library(readxl)
 library(openxlsx)
 library(rlang)
 library(forcats)
-setwd("~/Desktop")
 rev_4 <- read_excel("ISIC4_tidied.xlsx")
-rev_4_targets <- c("Agriculture", "Industry", "Construction", "Transportation", "Hotel and Resturant", "Financial", "Real Estate", "Other: Public", "Other: Private")
-#Revision 4 tidying
-hotel_filter_rev_4 <- rev_4 %>%
-  filter(!is.na(`Hotel and Resturant`)) %>% 
-  filter(`Hotel and Resturants` < 5 & `Hotel and Resturants` > -5)
+rev_4_targets <- c("Primary", "Industry", "Construction", "Transportation", "Hospitality", "Financial", "Real Estate", "Other: Public", "Other: Private")
 
-ggplot(data = hotel_filter_rev_4, aes(y = `Hotel and Resturants`, x = Year))+
-  geom_col()+
-  facet_wrap(~`Country`)+
-  theme_light()+
-  labs(title = "relative growth contribution of the hotel and resturant industry")
-#regressions attempts (didnt work)
-ggplot(data = rev_4, aes(x = `Hotel and Resturants`, y = Transportation))+
-  geom_point()+
-  geom_smooth(method = "lm", se = F)+
-  scale_x_continuous(limits = c(-5, 5))+
-  scale_y_continuous(limits = c(-5, 5))
-
-ggplot(data = ISIC4_growth_tided, aes(x = `Hotel and Resturants`, y = Construction))+
-  geom_point()+
-  geom_smooth(method = "lm", se = F)+
-  scale_x_continuous(limits = c(-5, 5))+
-  scale_y_continuous(limits = c(-5, 5))
-transportation_reg <- lm(Transportation ~ `Hotel and Resturants`, data = ISIC4_growth_tided, method = "qr")
-construction_reg <- lm(Construction ~ `Hotel and Resturants`, data = ISIC4_growth_tided, method = "qr")
 #big sector visualization for revision 4 of SNAS
 country_avgs <- rev_4 %>%
   group_by(`Country or Area`) %>% 

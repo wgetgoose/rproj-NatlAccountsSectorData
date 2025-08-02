@@ -1,13 +1,11 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(hrbrthemes)
 library(stringr)
 library(readxl)
 library(openxlsx)
 library(rlang)
 library(forcats)
-setwd("~/Desktop")
 rev_3 <- read_excel("Table2.1_ISIC3_ValueAddedCurrPrices_1970_2023.xlsx")
 
 #JAMACIA CASE STUDY
@@ -38,7 +36,7 @@ jam_final <- jam_tidy %>%
 
 #graphing for jamacia
 target_sna_codes <- c("Primary", "Manufacturing", "Electricity, gas, water supply", "Construction",
-                      "Hotels and restaurants", "Transportation", "Communications",
+                      "Hospitality", "Transportation", "Communications",
                       "Financial Intermediation", "Real Estate", "Other: commercial", "Other: public")
 isic3_jamacia <- Jamaica_growth %>% 
   filter(Year != 1998) %>% 
@@ -50,7 +48,9 @@ isic3_jamacia <- Jamaica_growth %>%
   mutate(sum = Primary + Manufacturing + `Electricity, gas, water supply` + Construction + Transportation + `Hotels and restaurants` + Communications +
            `Financial Intermediation` + `Real Estate` + `Other: commercial`+ `Other: public`)
 write.xlsx(isic3_jamacia, "ISIC3 Jamacia average.xlsx")
-jam_long <- isic3_jamacia %>% 
+ISIC3_Jamacia_average <- read_excel("ISIC3 Jamacia average.xlsx")
+
+jam_long <- ISIC3_Jamacia_average %>% 
   select(-sum) %>% 
   pivot_longer(cols = 1:11, names_to = "Sector", values_to = "Value")
 
