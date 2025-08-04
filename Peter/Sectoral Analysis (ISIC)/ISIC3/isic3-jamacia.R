@@ -29,15 +29,16 @@ jam_final <- jam_tidy %>%
   rename(Manufacturing = D,`Electricity, gas, water supply` = E,Construction = `F`,`Hotels and restaurants` = H,
          Transportation = `60-63`,Communications = `64`,`Financial Intermediation` = J, 
          `Real Estate` = K,`Gross Value Added` = `B.1g`) %>% 
-  mutate(`Other: commercial` = rowSums(across(c(G, P)), na.rm = T)) %>% 
-  mutate(`Other: public` = L + `M+N+O`) %>% 
+  mutate(`Other: Private` = rowSums(across(c(G, P)), na.rm = T)) %>% 
+  mutate(`Other: Public` = L + `M+N+O`) %>% 
   select(-c("A+B", "C", "G", "P", "L", "M+N+O"))
 
 
 #graphing for jamacia
 target_sna_codes <- c("Primary", "Manufacturing", "Electricity, gas, water supply", "Construction",
                       "Hospitality", "Transportation", "Communications",
-                      "Financial Intermediation", "Real Estate", "Other: commercial", "Other: public")
+                      "Financial Intermediation", "Real Estate", "Other: Private", "Other: Public")
+Jamaica_growth <- read_excel("ISIC Jamacia.xlsx")
 isic3_jamacia <- Jamaica_growth %>% 
   filter(Year != 1998) %>% 
   select(-c("P.119", "D.21-D.31", "D.21", "B.1*g")) %>% 
@@ -46,7 +47,8 @@ isic3_jamacia <- Jamaica_growth %>%
             Communications = mean(Communications), `Financial Intermediation` = mean(`Financial Intermediation`),
             `Real Estate` = mean(`Real Estate`), `Other: commercial` = mean(`Other: commercial`), `Other: public` = mean(`Other: public`)) %>% 
   mutate(sum = Primary + Manufacturing + `Electricity, gas, water supply` + Construction + Transportation + `Hotels and restaurants` + Communications +
-           `Financial Intermediation` + `Real Estate` + `Other: commercial`+ `Other: public`)
+           `Financial Intermediation` + `Real Estate` + `Other: commercial`+ `Other: public`) %>% 
+  rename(`Other: Private` = `Other: commercial`, `Other: Public` = `Other: public`, Hospitality = `Hotels and restaurants`)
 write.xlsx(isic3_jamacia, "ISIC3 Jamacia average.xlsx")
 ISIC3_Jamacia_average <- read_excel("ISIC3 Jamacia average.xlsx")
 
