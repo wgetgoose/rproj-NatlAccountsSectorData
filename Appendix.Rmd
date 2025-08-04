@@ -46,8 +46,7 @@ $$
 
 We perform the following operations on these transformed datasets for every country year:
 
-### Delta/change in (x_t - x_t-1)
-### absolute growth contribution (delta_x / sum_t-1)
-### relative growth contribution (abs_x / abs_sum)
-
-
+$$\text{Change in Total Value Added: } \Delta \text{TVA} = \text{TVA}_t - \text{TVA}_{t-1}$$
+$$\text{Change in Sector Value Added: } \Delta \text{Sector} = \text{Sector}_t - \text{Sector}_{t-1}$$
+$$\text{Absolute Growth Contribution: } \frac{\Delta \text{Sector}_t}{\Delta \text{TVA}_t}$$ 
+$$\text{Relative Growth Contribution: } \frac{\Delta \text{Sector}_t}{\text{TVA}_{t-1}}$$
