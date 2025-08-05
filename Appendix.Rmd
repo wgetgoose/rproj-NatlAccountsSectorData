@@ -17,6 +17,22 @@ library(openxlsx)
 
 # Appendix A - Derivation of Relative Growth Values from Official National Accounts Data
 
+*Some countries analyzed in the ISIC dataset lack data for all of the years listed in our general analysis of the dataset (2005-2022). The countries without full data availability are listed below, those not mentioned had data for all years:
+Antigua and Barbuda: 2012-2022,
+Bahamas: 2013-2022,
+Barbados: 2011-2022,
+Cabo Verde: 2008-2022,
+Cook Islands: 2007-2022,
+Fiji: 2012-2022,
+Guyana: 2007-2022,
+Mauritius: 2007-2022,
+Papua New Guinea: 2007-2018,
+Saint Lucia: 2007-2020,
+Samoa:2008-2020,
+Seychelles: 2015-2022,
+Suriname: 2016-2022,
+Trinidad and Tobago: 2013-2022,
+
 In this Appendix, we describe the method(s) used to calculate relative growth values for economic sectors in a set of small island developing nations (SIDS). This model draws on the existing Growth Models literature, with previous work tabulating sectoral growth through the use of OECD input-output tables [(Baccaro and Hadziabdic 2022)](https://link.springer.com/article/10.1007/s11135-023-01685-w). Due to the fact that input-output tables are not available for the SIDS, we have adapted this model to the readily available International Standard Industrial Classification of All Economic Activities (ISIC) data provided by the United Nations Statistics Division ([Citation ISIC3](http://data.un.org/Data.aspx?d=SNA&f=group_code%3a201%3bcountry_code%3a132%2c174%2c184%2c192%2c212%2c214%2c242%2c28%2c296%2c308%2c328%2c332%2c388%2c44%2c462%2c480%2c52%2c520%2c548%2c570%2c583%2c584%2c598%2c624%2c626%2c662%2c670%2c678%2c690%2c702%2c740%2c776%2c780%2c798%2c84%2c882%2c90%3bfiscal_year%3a1970%2c1971%2c1972%2c1973%2c1974%2c1975%2c1976%2c1977%2c1978%2c1979%2c1980%2c1981%2c1982%2c1983%2c1984%2c1985%2c1986%2c1987%2c1988%2c1989%2c1990%2c1991%2c1992%2c1993%2c1994%2c1995%2c1996%2c1997%2c1998%2c1999%2c2000%2c2001%2c2002%2c2003%2c2004%2c2005%2c2006%2c2007%2c2008%2c2009%2c2010%2c2011%2c2012%2c2013%2c2014%2c2015%2c2016%2c2017%2c2018%2c2019%2c2020%2c2021%2c2022%2c2023&c=2,3,4,6,7,8,9,10,11,13&s=_cr_engNameOrderBy:asc,fiscal_year:desc,_grIt_code:asc&v=1), [Citation ISIC4](https://data.un.org/Data.aspx?d=SNA&f=group_code%3a204%3bcountry_code%3a132%2c174%2c184%2c192%2c212%2c214%2c242%2c28%2c296%2c308%2c328%2c332%2c388%2c44%2c462%2c480%2c52%2c520%2c548%2c570%2c583%2c584%2c598%2c624%2c626%2c662%2c670%2c678%2c690%2c702%2c740%2c776%2c780%2c798%2c84%2c882%2c90%3bfiscal_year%3a1970%2c1971%2c1972%2c1973%2c1974%2c1975%2c1976%2c1977%2c1978%2c1979%2c1980%2c1981%2c1982%2c1983%2c1984%2c1985%2c1986%2c1987%2c1988%2c1989%2c1990%2c1991%2c1992%2c1993%2c1994%2c1995%2c1996%2c1997%2c1998%2c1999%2c2000%2c2001%2c2002%2c2003%2c2004%2c2005%2c2006%2c2007%2c2008%2c2009%2c2010%2c2011%2c2012%2c2013%2c2014%2c2015%2c2016%2c2017%2c2018%2c2019%2c2020%2c2021%2c2022%2c2023&c=2,3,4,6,7,8,9,10,11,13&s=_cr_engNameOrderBy:asc,fiscal_year:asc,_grIt_code:asc&v=1)). The two revisions have slightly different series with varying combinations of sectoral components, making a merge of the two impractical. ISIC 3 is only used for the country of Jamaica, one of the case studies examined in the chapter. Jamaica has yet to update to the ISIC 4 revision and as such it was necessary to use the ISIC 3 data that they supply which spans from 1998-2023. 
 
 Both revisions are provided in local currency at the current price level. We first pivot the data into a “wide” format, where each item in the dataset is given its own column and then computed variables from the original series (16 for revision 3 and 20 for revision 4) as follows (System of National Accounts codes listed in parentheses):
@@ -60,13 +76,10 @@ $$
 \end{array}
 $$
 
-
-
-
-
-We perform the following operations on these transformed datasets for every country year:
+These combinations provide us with interpretable categories while maintaining a level of granularity that allows for detailed sectoral analysis. We then perform the following operations on these transformed datasets for every country year:
 
 $$\text{Change in Total Value Added: } \Delta \text{TVA} = \text{TVA}_t - \text{TVA}_{t-1}$$
 $$\text{Change in Sector Value Added: } \Delta \text{Sector} = \text{Sector}_t - \text{Sector}_{t-1}$$
 $$\text{Absolute Growth Contribution: } \frac{\Delta \text{Sector}_t}{\Delta \text{TVA}_t}$$ 
 $$\text{Relative Growth Contribution: } \frac{\Delta \text{Sector}_t}{\text{TVA}_{t-1}}$$
+

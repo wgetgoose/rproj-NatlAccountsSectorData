@@ -15,22 +15,71 @@ country_avgs <- rev_4 %>%
   summarize(across(all_of(rev_4_targets), ~ mean(.x, na.rm = T)), .groups = "drop") %>% 
   mutate(sum = rowSums(across(all_of(rev_4_targets)), na.rm = T))
 
-write.xlsx(country_avgs, "isic4_country_averages.xlsx")
+country_avgs_2005_2022 <- rev_4 %>%
+  group_by(`Country or Area`) %>% 
+  filter(Year > 2004 & Year < 2023) %>% 
+  summarize(across(all_of(rev_4_targets), ~ mean(.x, na.rm = T)), .groups = "drop") %>% 
+  mutate(sum = rowSums(across(all_of(rev_4_targets)), na.rm = T))
+
+write.xlsx(country_avgs_2005_2022, "isic4_country_averages (2005-2022).xlsx")
 
 sector_long <- country_avgs %>% 
   select(-sum) %>% 
   pivot_longer(-`Country or Area`, names_to = "Sector", values_to = "Value")
+sector_long_2005_2022 <- country_avgs_2005_2022 %>% 
+  select(-sum) %>% 
+  pivot_longer(-`Country or Area`, names_to = "Sector", values_to = "Value")
 
-ggplot(sector_long, aes(x = fct_relevel(Sector, rev_4_targets), y = Value, fill = fct_relevel(Sector, rev_4_targets))) +
+ggplot(data = sector_long_2005_2022, aes(x = fct_relevel(Sector, rev_4_targets), y = Value, fill = fct_relevel(Sector, rev_4_targets))) +
   geom_col() +
   facet_wrap(~ `Country or Area`, scales = "free_y") +
   theme_minimal() +
-  labs(title = "Relative Sector Growth Contributions by Country",
+  labs(title = "Relative Sector Growth Contributions by Country (2005-2022)*",
+       caption = "*See Appendix A",
        x = "Sector",
        y = "Value") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   scale_fill_brewer(palette = "Spectral", name = "Sector")+
   theme(legend.position = "right")
-  #legend(y = Sector, fill = Sector)
 
+#individual graphs for the Madlives, Mauritius and the Seychelles
+sector_long %>% 
+  filter(`Country or Area` == "Maldives") %>% 
+  ggplot(aes(x = fct_relevel(Sector, rev_4_targets), y = Value, fill = fct_relevel(Sector, rev_4_targets))) +
+  geom_col() +
+  theme_minimal() +
+  labs(title = "Maldives Relative Sector Growth Contributions (2004-2022)",
+       x = "Sector",
+       y = "Value") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  scale_fill_brewer(palette = "Spectral", name = "Sector")+
+  theme(legend.position = "right")
+
+sector_long %>% 
+  filter(`Country or Area` == "Mauritius") %>% 
+  ggplot(aes(x = fct_relevel(Sector, rev_4_targets), y = Value, fill = fct_relevel(Sector, rev_4_targets))) +
+  geom_col() +
+  theme_minimal() +
+  labs(title = "Mauritius Relative Sector Growth Contributions (2007-2023)",
+       x = "Sector",
+       y = "Value") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  scale_fill_brewer(palette = "Spectral", name = "Sector")+
+  theme(legend.position = "right")
+
+sector_long %>% 
+  filter(`Country or Area` == "Seychelles") %>% 
+  ggplot(aes(x = fct_relevel(Sector, rev_4_targets), y = Value, fill = fct_relevel(Sector, rev_4_targets))) +
+  geom_col() +
+  theme_minimal() +
+  labs(title = "Seychelles Relative Sector Growth Contributions (2015-2022)",
+       x = "Sector",
+       y = "Value") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  scale_fill_brewer(palette = "Spectral", name = "Sector")+
+  theme(legend.position = "right")
+
+avail <- rev_4 %>% 
+  group_by(`Country or Area`) %>% 
+  summarise(min(Year), max(Year))
 
