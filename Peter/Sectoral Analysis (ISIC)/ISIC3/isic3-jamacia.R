@@ -60,8 +60,7 @@ jam_long <- ISIC3_Jamacia_average %>%
 ggplot(jam_long, aes(x = fct_relevel(Sector, target_sna_codes), y = Value, fill = fct_relevel(Sector, target_sna_codes))) +
   geom_col() +
   theme_minimal() +
-  labs(title = "Relative Sector Growth Contributions by Country",
-       x = "Sector",
+  labs(x = "Sector",
        y = "Value") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   scale_fill_brewer(palette = "Spectral", name = "Sector")+
