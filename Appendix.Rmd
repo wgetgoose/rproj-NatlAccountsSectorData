@@ -7,7 +7,7 @@ header-includes:
       - \setlength{\parindent}{24pt} 
 ---
 
-```{r, include = FALSE}
+```{r, echo = FALSE}
 library(knitr)
 library(tidyverse)
 library(ggplot2)
