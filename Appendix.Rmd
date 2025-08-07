@@ -19,10 +19,10 @@ library(kableExtra)
 ```
 
 ```{r, include = FALSE}
-SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3 <- read_excel("~/Desktop/RA/rproj-NatlAccountsSectorData/Carson/National Accounts Official Country Data/SIDS 1990-2023 ConstantLocal ISIC3/SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3.xlsx")
+SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3 <- read_excel("./Carson/National Accounts Official Country Data/SIDS 1990-2023 ConstantLocal ISIC3/SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3.xlsx")
 SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3 <- SIDS_1990_2023_ConstantPrices_LocalCurrency_ISIC3 %>% 
   select(-c("TVA Sum", "Difference"))
-ISIC4_tidied <- read_excel("~/Desktop/RA/rproj-NatlAccountsSectorData/Peter/Sectoral Analysis (ISIC)/ISIC4/ISIC4_tidied.xlsx")
+ISIC4_tidied <- read_excel("./Peter/Sectoral Analysis (ISIC)/ISIC4/ISIC4_tidied.xlsx")
 ISIC4_tidied <- ISIC4_tidied %>% 
   select(-c("Currency", "Financial", "Real Estate"))
 ```
