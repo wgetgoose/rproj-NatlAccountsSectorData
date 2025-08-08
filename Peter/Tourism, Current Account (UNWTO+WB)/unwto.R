@@ -134,5 +134,8 @@ plot_tourism_vs_rooms <- function(data, countries, width = 7, height = 5) {
     ggsave(filename = file_name, plot = p, width = width, height = height)
   }
 }
-
+rooms_current_account %>% 
+  group_by(Country) %>% 
+  summarize(Hospitality = mean(Hospitality, na.rm = T)) %>% 
+  View()
   

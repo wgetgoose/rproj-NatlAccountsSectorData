@@ -67,10 +67,10 @@ $$
 \text{Hospitality = Accommodation and food service activities (I)} \\
 \text{Financial = Financial and insurance activities (K)} \\
 \text{Real Estate = Real estate activities (L)} \\
-\text{Other: Public = Wholesale and retail trade, Information and communication,} \\
+\text{Other: Private = Wholesale and retail trade, Information and communication,} \\
 \text{Professional, scientific, technical, administrative and support service activities,} \\
 \text{and other service activities (G+J+M+N+R+S+T)} \\
-\text{Other: Private = Public administration and defence, education,} \\
+\text{Other: Public = Public administration and defence, education,} \\
 \text{human health and social work activities (O+P+Q)}
 \end{array}
 $$
